@@ -1,9 +1,12 @@
 void setup() {
   size(400,400);
-  background(154, 250, 249);
 }
 
 void draw() {
+  background(154, 250, 249);
+  line(width/2,height/2, mouseX,mouseY);
+  println(atan2(height/2-mouseY, width/2-mouseX) * 180 / PI);
+  
   noStroke();
   
   fill(255, 240, 199); // Feet
@@ -34,4 +37,9 @@ void draw() {
   fill(0, 0, 0); //pupils
   ellipse(150,132, 10, 10);
   ellipse(250,132, 10, 10);
+  
+  fill(255,255,255);
+  rect(0,0, 100, 25);
+  fill(0,0,0);
+  text("x:" + mouseX + ", y: " + mouseY, 5, 15);
 }
