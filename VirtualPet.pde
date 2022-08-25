@@ -1,16 +1,18 @@
+float mouseRot;
+
 void setup() {
   size(400,400);
 }
 
 void draw() {
   background(154, 250, 249);
-  line(width/2,height/2, mouseX,mouseY);
-  println(atan2(height/2-mouseY, width/2-mouseX) * 180 / PI);
-  
+  mouseRot = atan2(height/2-mouseY, width/2-mouseX);
+  //println(mouseRot * 180 / PI);
   noStroke();
   
   fill(255, 240, 199); // Feet
-  rect(50,40, 50, 320);
+  //rect(50,40, 50, 320);
+  quad(50,40, 100, 40, 100, 360, 50, 360);
   rect(300,40, 50, 320);
   
   fill(181, 165, 101); // Cardboard
@@ -42,4 +44,23 @@ void draw() {
   rect(0,0, 100, 25);
   fill(0,0,0);
   text("x:" + mouseX + ", y: " + mouseY, 5, 15);
+  
+  strokeWeight(5);
+  arc(200,250, 50, 50, mouseRot, mouseRot+PI);
+}
+
+float[] rotateAroundCenter(float x, float y, float rot) {
+  float[] newPoint = new float[2];
+  float originX = width/2 - x;
+  float originY = height/2 - y;
+  float hyp = sqrt(pow(originX, 2) + pow(originY, 2));
+  float rotatedX = cos(acos(originX/hyp)+rot+PI)*hyp;
+  float rotatedY = sin(asin(originY/hyp)+rot+PI)*hyp;
+  
+  float newX = rotatedX + width/2;
+  float newY = rotatedY + height/2;
+  newPoint[0] = newX;
+  newPoint[1] = newY;
+  
+  return newPoint;
 }
